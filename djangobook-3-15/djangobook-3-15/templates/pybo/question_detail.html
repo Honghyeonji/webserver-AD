@@ -47,12 +47,14 @@
                     <div class="mt-3">
                     {% for comment in question.comment_set.all %}
                         <a name="comment_{{ comment.id }}"></a>
-                        <div class="comment py-2 text-muted">
-                            <span style="white-space: pre-line;">{{ comment.content }}</span>
-                            <span>
-                                - {{ comment.author }}, {{ comment.create_date }}
+                                    <div class="comment py-3 text-muted">
+                                        <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"class="recommend">추천</a> 
+                                        <span class="bg-light text-center p-0.5 border font-weight-bolder mb-1">{{comment.voter.count}}</span>
+                                        <span style="white-space: pre-line;">{{ comment.content }}</span>
+                                        <span>
+                                - {{ comment.author }}, {{ comment.create_date }} 
                                 {% if comment.modify_date %}
-                                (수정:{{ comment.modify_date }})
+                                (수정:{{ comment.modify_date }} , 수정 횟수: {{comment.modified_count}} )
                                 {% endif %}
                             </span>
                             {% if request.user == comment.author %}
@@ -111,11 +113,13 @@
                     {% for comment in answer.comment_set.all %}
                         <a name="comment_{{ comment.id }}"></a>
                         <div class="comment py-2 text-muted">
+                            <a href="#" data-uri="{% url 'pybo:vote_comment_answer' comment.id  %}"class="recommend">추천</a> 
+                                        <span class="bg-light text-center p-0.5 border font-weight-bolder mb-1">{{comment.voter.count}}</span>
                             <span style="white-space: pre-line;">{{ comment.content }}</span>
                             <span>
                                 - {{ comment.author }}, {{ comment.create_date }}
                                 {% if comment.modify_date %}
-                                (수정:{{ comment.modify_date }})
+                                (수정:{{ comment.modify_date }}, 수정 횟수: {{comment.modified_count}} )
                                 {% endif %}
                             </span>
                             {% if request.user == comment.author %}
