@@ -20,6 +20,7 @@ def answer_create(request, question_id):
             answer.author = request.user  # 추가한 속성 author 적용
             answer.create_date = timezone.now()
             answer.question = question
+            answer.modify_cnt = 0
             answer.save()
             return redirect('{}#answer_{}'.format(
                 resolve_url('pybo:detail', question_id=question.id), answer.id))
@@ -45,6 +46,7 @@ def answer_modify(request, answer_id):
             answer = form.save(commit=False)
             answer.author = request.user
             answer.modify_date = timezone.now()
+            answer.modify_cnt += 1
             answer.save()
             return redirect('{}#answer_{}'.format(
                 resolve_url('pybo:detail', question_id=answer.question.id), answer.id))
