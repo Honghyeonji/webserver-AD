@@ -48,6 +48,7 @@
                            data-uri="{% url 'pybo:question_delete' question.id  %}">삭제</a>
                     </div>
                     {% endif %}
+                    {% if comments %}
                     <div class="mt-3" style='font-size: small'>댓글</div>
                     <div class="row ml-1" sytle="width: 100%">
                         <div class="custom-control custom-radio form-control so" style='width: 100px; border: none'>
@@ -85,7 +86,6 @@
                         </div>
                     </div>
                     <!-- 질문 댓글 Start -->
-                    {% if comments %}
                     <div>
                     {% for comment in comments %}
                         <a name="comment_{{ comment.id }}"></a>
